@@ -1,0 +1,60 @@
+<!--begin::Body-->
+<div class="kt-login__body col-md-4 offset-md-3" >
+	<!--begin::Signin-->
+	<div class="kt-login__form">
+		<div class="kt-login__title">
+			<h3>Upload File</h3>
+		</div>
+
+		<kt-auth-notice></kt-auth-notice>
+
+		<form class="kt-login__form kt-form" [formGroup]="uploadFile" autocomplete="off">
+			<div class="form-group">
+				<mat-form-field>
+					<mat-label>File Name</mat-label>
+					<input matInput type="text" placeholder="Filename" formControlName="filename"/>
+					<mat-error *ngIf="isControlHasError('filename','required')">
+						<strong>{{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}</strong>
+					</mat-error>
+					<mat-error *ngIf="isControlHasError('filename','minlength')">
+						<strong>{{ 'AUTH.VALIDATION.MIN_LENGTH_FIELD' | translate }} 3</strong>
+					</mat-error>
+					<mat-error *ngIf="isControlHasError('filename','maxlength')">
+						<strong>{{ 'AUTH.VALIDATION.MAX_LENGTH_FIELD' | translate }} 100</strong>
+					</mat-error>
+				</mat-form-field>
+			</div>
+			<div class="form-group">
+				<mat-form-field>
+					<mat-label>Access Token</mat-label>
+					<input matInput type="text" placeholder="access-token" formControlName="accessToken" autocomplete="off"/>
+					<mat-error *ngIf="isControlHasError('accessToken','required')">
+						<strong>{{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}</strong>
+					</mat-error>
+					<mat-error *ngIf="isControlHasError('accessToken','minlength')">
+						<strong>{{ 'AUTH.VALIDATION.MIN_LENGTH_FIELD' | translate }} 3</strong>
+					</mat-error>
+					<mat-error *ngIf="isControlHasError('accessToken','maxlength')">
+						<strong>{{ 'AUTH.VALIDATION.MAX_LENGTH_FIELD' | translate }} 320</strong>
+					</mat-error>
+				</mat-form-field>
+			</div>
+			<!--begin::Action-->
+			<div class="kt-login__actions">
+				<input type="file" formControlName='file' (change)="onFileChange($event)">
+				<!-- <app-file-upload formControlName="file" ></app-file-upload> -->
+				<mat-error *ngIf="isControlHasError('file','required')">
+					<strong>{{ 'AUTH.VALIDATION.REQUIRED_FIELD' | translate }}</strong>
+				</mat-error>
+				<mat-error *ngIf="error">
+					<strong>Please Choose a CSV file</strong>
+				</mat-error>
+			
+			</div>
+			<div class="offset-md-2 mt-3" >
+				<input type="submit" (click)='submit()' value="Submit"  class="btn btn-info kt-btn" > 
+			</div>
+			<!--end::Action-->
+		</form>
+	</div>
+</div>
